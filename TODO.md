@@ -1,54 +1,9 @@
 # Priority
 
-## General
+## IMS
 
-- add showProgress option for future MP
-- ppm spectral averaging (Ricardo)
+- Disable opentims threading when using OpenMP?
 
-
-## Features
-
-- Normalization
-    - maybe: allow usage of normalized intensities with filter()?
-    - find another way to assign close/far ISTDs: if there are multiple close ones available, it makes more sense to not consider those that are a bit far away.
-    - reportHTML: report normalized intensities in featInfo?
-    - normInts(): default normFunc OK? and others?
-        - update newProject() for any changes
-
-
-## TPs
-
-- Reporting
-    - Split formulaDiff like plotGraph()?
-- newProject()
-    - selector for CTS transLibrary?
-- plotGraph()
-    - keep duplicate selector?
-
-
-## MS library
-
-- library
-    - fixup annotation formulas too?
-        - for now a little bit in C++ fixAnnFormula(), maybe implement verifyFormulas() in C++ someday?
-    - also verify formulas of adducts?
-        - would be nice in general to check for user input, but for now calculateMasses(err=FALSE) seems to suffice
-    - Column name harmonization
-        - More column names?
-        - Make option in as.data.table() to enable/disable name harmonization?
-    - sanitize input
-        - MoNA: take calculated SMILES? See e.g. "PR308903" and "PR308904"
-            - now prohibited since first value is always taken
-            - however, for these examples the SMILES are fixed by the InChI-->SMILES conversion in prepareChemTable()
-    - future
-        - plotSpectrum, plotVenn, same data format for MSPeakLists
-- compounds
-    - show mirror spectrum in report?
-        - Would need library data somehow --> perhaps compoundsLibrary can include averaged lib spectra
-    - collapse with IK1?
-        - yes for now, as e.g. sets and consensus expects this (UID column)
-- prepareChemTable()
-    - skip/warn if obabel is not available?
 
 
 # Lower priority
@@ -64,6 +19,8 @@
 - allow specifying average function in other places where as.data.table() is used (eg clustering, plotting etc)
 - delete() for other classes
 - generalize makeLegend() to new plot util
+- add showProgress option for future MP
+- ppm spectral averaging (Ricardo)
 
 
 ## Features
@@ -86,6 +43,12 @@
     - can be, but now handled by default method="medret" param. Make this configurable?
 - updatePICSet(): also sync peaks list? otherwise doc
 - Somehow integrate XCMS::fillChromPeaks
+- Normalization
+    - maybe: allow usage of normalized intensities with filter()?
+    - find another way to assign close/far ISTDs: if there are multiple close ones available, it makes more sense to not consider those that are a bit far away.
+    - reportHTML: report normalized intensities in featInfo?
+    - normInts(): default normFunc OK? and others?
+        - update newProject() for any changes
 
 
 ## Annotation
@@ -127,6 +90,38 @@
         - precursor FALSE?
         - thresholds not really handy for formulas/compounds
             - at least doc that annotation results may disappear
+- Reporting
+    - Split formulaDiff like plotGraph()?
+- newProject()
+    - selector for CTS transLibrary?
+- plotGraph()
+    - keep duplicate selector?
+
+
+## MS library
+
+- library
+    - fixup annotation formulas too?
+        - for now a little bit in C++ fixAnnFormula(), maybe implement verifyFormulas() in C++ someday?
+    - also verify formulas of adducts?
+        - would be nice in general to check for user input, but for now calculateMasses(err=FALSE) seems to suffice
+    - Column name harmonization
+        - More column names?
+        - Make option in as.data.table() to enable/disable name harmonization?
+    - sanitize input
+        - MoNA: take calculated SMILES? See e.g. "PR308903" and "PR308904"
+            - now prohibited since first value is always taken
+            - however, for these examples the SMILES are fixed by the InChI-->SMILES conversion in prepareChemTable()
+    - future
+        - plotSpectrum, plotVenn, same data format for MSPeakLists
+- compounds
+    - show mirror spectrum in report?
+        - Would need library data somehow --> perhaps compoundsLibrary can include averaged lib spectra
+    - collapse with IK1?
+        - yes for now, as e.g. sets and consensus expects this (UID column)
+- prepareChemTable()
+    - skip/warn if obabel is not available?
+
 
 
 ## tests
