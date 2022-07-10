@@ -22,6 +22,7 @@ setGeneric("internalStandards", function(fGroups) standardGeneric("internalStand
 setGeneric("internalStandardAssignments", function(fGroups, ...) standardGeneric("internalStandardAssignments"))
 setGeneric("normInts", function(fGroups, featNorm = "none", groupNorm = FALSE, normFunc = max, standards = NULL,
                                 ISTDRTWindow = 120, ISTDMZWindow = 300, minISTDs = 3, ...) standardGeneric("normInts"))
+setGeneric("plotMobilogram", function(obj, ...) standardGeneric("plotMobilogram"))
 
 setGeneric("getPICSet", function(obj, ...) standardGeneric("getPICSet"))
 
