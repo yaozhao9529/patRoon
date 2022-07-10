@@ -1346,6 +1346,13 @@ setMethod("normInts", "featureGroups", function(fGroups, featNorm, groupNorm, no
     return(fGroups)
 })
 
+#' @export
+setMethod("findMobilities", "featureGroups", function(obj, ...)
+{
+    obj@features <- findMobilities(getFeatures(obj), ...)
+    return(obj)
+})
+
 #' Grouping of features
 #'
 #' Group equal features across analyses.

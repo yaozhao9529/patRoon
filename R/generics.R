@@ -2,6 +2,7 @@
 ### Features and feature groups
 
 setGeneric("featureTable<-", function(obj, value) standardGeneric("featureTable<-"))
+setGeneric("mobilities", function(obj) standardGeneric("mobilities"))
 
 setGeneric("groupTable", function(object, ...) standardGeneric("groupTable"))
 setGeneric("groupFeatIndex", function(fGroups) standardGeneric("groupFeatIndex"))
