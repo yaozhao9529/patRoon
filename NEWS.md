@@ -1,3 +1,8 @@
+# patRoon 3.0
+
+- Fixed: KPIC2 grouping would error when there are no results
+
+
 # patRoon 2.1.1
 
 - Fixed: The `traceSNRFiltering` argument could not be set for `findFeaturesOpenMS()`
