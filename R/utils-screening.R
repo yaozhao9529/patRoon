@@ -106,15 +106,18 @@ prepareSuspectList <- function(suspects, adduct, skipInvalid, checkDesc, prefCal
     return(suspects)
 }
 
+# NOTE: rt is always included
+suspMetaDataCols <- function(suspects) c("name", "rt",
+                                         intersect(c("name_orig", "mz", "SMILES", "InChI", "InChIKey", "formula",
+                                                     "neutralMass", "adduct", "fragments_mz",
+                                                     "fragments_formula"), names(suspects)))
+
 doScreenSuspects <- function(fGroups, suspects, rtWindow, mzWindow, skipInvalid)
 {
     gInfo <- groupInfo(fGroups)
     annTbl <- annotations(fGroups)
     
-    # NOTE: rt is always included
-    metaDataCols <- c("name", "rt",
-                      intersect(c("name_orig", "mz", "SMILES", "InChI", "InChIKey", "formula", "neutralMass", "adduct",
-                                  "fragments_mz", "fragments_formula"), names(suspects)))
+    metaDataCols <- suspMetaDataCols(suspects)
     
     emptyResult <- function()
     {
@@ -252,8 +255,19 @@ doGroupSuspects <- function(feat, groupFunc, ..., verbose = TRUE)
     gInfo <- as.data.frame(fgInfoAll[, c("rts", "mzs"), with = FALSE])
     rownames(gInfo) <- fgInfoAll$group_susp
     
-    # UNDONE: set screenInfo
-    return(featureGroupsScreening(screenInfo = data.table(), groups = gTable, groupInfo = gInfo, analysisInfo = anaInfo,
+    # set screenInfo
+    sInfo <- fgInfoAll[, c("suspect", "group_susp"), with = FALSE]
+    setnames(sInfo, c("suspect", "group_susp"),  c("name", "group"))
+    
+    metaDataCols <- suspMetaDataCols(feat@suspects)
+    susp <- copy(feat@suspects)
+    if (is.null(susp[["rt"]]))
+        susp[, rt := NA_real_]
+    sInfo <- merge(sInfo, susp[, metaDataCols, with = FALSE], by = "name")
+    sInfo[, d_rt := gInfo[group, "rts"] - rt]
+    sInfo[, d_mz := gInfo[group, "mzs"] - mz] # NOTE: this is always ~0 since featuresSuspects doesn't m/z determination (yet)
+    
+    return(featureGroupsScreening(screenInfo = sInfo, groups = gTable, groupInfo = gInfo, analysisInfo = anaInfo,
                                   features = feat, ftindex = ftind))
 }
 
