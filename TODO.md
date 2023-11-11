@@ -5,6 +5,17 @@
     - add to handbook
     - add NEWS
 
+## TC
+
+- annSims
+    - let lib compounds use the same specsimParams default? Then annSim == libMatch by default.
+    
+- docs
+    - specSimParamsMatch --> specSimParams
+
+- NEWS
+    - specSimParamsMatch --> specSimParams
+
 ## Ext
 
 - R bundle
